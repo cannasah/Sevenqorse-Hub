@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0a0818" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f1eefc" media="(prefers-color-scheme: light)">
+<title>Sevenqorse Hub</title>
+<link rel="icon" href="logo-icon.png?v=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+/* Koyu tema (varsayılan) */
+:root{--bg:#0a0818;--panel:#130f2b;--ink:#efecff;--muted:#a49fc8;--line:#2b2556;--c1:#5b48b8;--c2:#a99bff;--c3:#7b6ae8;--tile:#f4f7fb;--glass:rgba(19,15,43,.82);--grid:rgba(255,255,255,.035);--soft:rgba(255,255,255,.04);--ok:1;--hl:169,155,255;--halo:rgba(169,155,255,.4);--brand-shadow:0 0 26px rgba(91,72,184,.5);--shadow:0 20px 60px rgba(0,0,0,.45)}
+/* Açık tema: sistem ayarı */
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f1eefc;--panel:#fff;--ink:#1b1540;--muted:#5d5880;--line:#d9d3f0;--c1:#4a3aa6;--c2:#6d5cd6;--c3:#5b48b8;--tile:#fff;--glass:rgba(255,255,255,.86);--grid:rgba(60,40,140,.07);--soft:rgba(60,40,140,.05);--ok:.3;--hl:91,72,184;--halo:rgba(91,72,184,.28);--brand-shadow:0 4px 18px rgba(74,58,166,.16);--shadow:0 18px 50px rgba(60,40,140,.16)}}
+/* Açık tema: elle seçim */
+:root[data-theme="light"]{--bg:#f1eefc;--panel:#fff;--ink:#1b1540;--muted:#5d5880;--line:#d9d3f0;--c1:#4a3aa6;--c2:#6d5cd6;--c3:#5b48b8;--tile:#fff;--glass:rgba(255,255,255,.86);--grid:rgba(60,40,140,.07);--soft:rgba(60,40,140,.05);--ok:.3;--hl:91,72,184;--halo:rgba(91,72,184,.28);--brand-shadow:0 4px 18px rgba(74,58,166,.16);--shadow:0 18px 50px rgba(60,40,140,.16)}
+
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{height:100dvh;display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) 0 env(safe-area-inset-left,0px);overflow:hidden;transition:background .3s,color .3s}
+button,a{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--c2);outline-offset:2px}
+[hidden]{display:none!important}
+
+/* arka plan */
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.orb{position:fixed;border-radius:50%;filter:blur(90px);z-index:0;pointer-events:none;animation:drift 18s ease-in-out infinite alternate}
+.o1{width:46vmax;height:46vmax;background:var(--c1);left:-14vmax;top:-18vmax;opacity:calc(var(--ok)*.45)}
+.o2{width:38vmax;height:38vmax;background:var(--c2);right:-12vmax;bottom:-16vmax;animation-delay:-6s;opacity:calc(var(--ok)*.3)}
+.o3{width:28vmax;height:28vmax;background:var(--c3);left:38%;top:30%;animation-delay:-11s;opacity:calc(var(--ok)*.22)}
+@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.18)}}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%)}
+header.top,.stage,.dock{position:relative;z-index:1}
+
+/* üst bar */
+header.top{display:flex;align-items:center;gap:10px;padding:12px 16px}
+.brand{display:flex;align-items:center;gap:10px;background:#f6f4ff;border:1px solid var(--line);padding:6px 12px 6px 8px;border-radius:16px;box-shadow:var(--brand-shadow)}
+.bi{height:34px;width:34px;border-radius:9px;display:block}
+.bw{height:18px;width:auto;display:block}
+.mark{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--c1),var(--c3));font-weight:800;font-size:.9rem;color:#fff}
+.hub{font-weight:800;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,var(--c1),var(--c3));padding:4px 8px;border-radius:8px}
+.actions{margin-left:auto;display:flex;align-items:center;gap:8px}
+.icon-btn{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);background:var(--soft);cursor:pointer;transition:box-shadow .2s,border-color .2s}
+.icon-btn:hover{border-color:var(--c2);box-shadow:0 0 16px rgba(var(--hl),.4)}
+.cta{position:relative;overflow:hidden;text-decoration:none;font-weight:600;padding:9px 16px;border-radius:999px;color:#fff;background:linear-gradient(90deg,var(--c1),var(--c3));box-shadow:0 0 22px rgba(91,72,184,.45);white-space:nowrap}
+.cta::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 3.2s ease-in-out infinite}
+@keyframes shine{to{left:130%}}
+
+/* instagram: masaüstünde sol kenar şeridi */
+.ig{position:fixed;left:env(safe-area-inset-left,0px);top:50%;transform:translateY(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;padding:14px 9px;background:var(--glass);border:1px solid var(--line);border-left:0;border-radius:0 14px 14px 0;text-decoration:none;color:var(--ink);backdrop-filter:blur(8px);transition:box-shadow .2s}
+.ig span{writing-mode:vertical-rl;transform:rotate(180deg);font-size:.82rem;letter-spacing:.06em;color:var(--muted)}
+.ig:hover{box-shadow:0 0 22px rgba(var(--hl),.5)}.ig:hover span{color:var(--ink)}
+
+/* pencere */
+.stage{min-height:0;padding:4px 14px 0 60px}
+.window{height:100%;display:flex;flex-direction:column;background:var(--glass);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px rgba(91,72,184,.12),var(--shadow)}
+.window.pop{animation:pop .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{transform:scale(.94);filter:blur(8px);opacity:.3}to{transform:none;filter:none;opacity:1}}
+.bar{display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid var(--line);min-height:48px}
+.bar-i{width:24px;height:24px;border-radius:7px;flex:none}
+.who{flex:1;min-width:0}
+#title{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#path{font-size:.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btn{border:1px solid var(--line);background:var(--soft);border-radius:9px;padding:6px 11px;font-size:.88rem;cursor:pointer;text-decoration:none;white-space:nowrap;transition:border-color .2s,box-shadow .2s}
+.btn:hover{border-color:var(--c2);box-shadow:0 0 14px rgba(var(--hl),.3)}
+.btn[aria-pressed="true"]{background:var(--c1);border-color:var(--c1);color:#fff}
+
+.view{position:relative;flex:1;min-height:0;display:flex;justify-content:center;--px:50%;--py:40%;background:radial-gradient(500px circle at var(--px) var(--py),rgba(91,72,184,.16),transparent 70%)}
+.view::before{content:"";position:absolute;right:-70px;bottom:-70px;width:400px;height:400px;background:url(logo-icon.png?v=1) center/contain no-repeat;opacity:.06;pointer-events:none;z-index:0;animation:float 7s ease-in-out infinite}
+.view iframe{position:relative;z-index:1;width:100%;height:100%;border:0;background:#fff;opacity:0;transition:opacity .35s}
+.view.ready iframe{opacity:1}
+.view.mobile iframe{width:390px;max-width:100%;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+.view.loading::after{content:"";position:absolute;left:0;top:0;height:3px;width:40%;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));box-shadow:0 0 14px var(--c2);animation:slide 1s ease-in-out infinite;z-index:2}
+@keyframes slide{from{transform:translateX(-100%)}to{transform:translateX(260%)}}
+
+/* karşılama */
+#welcome{position:relative;z-index:1;align-self:center;display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px;max-width:40rem}
+.halo{position:relative;display:grid;place-items:center;animation:float 5s ease-in-out infinite}
+.halo::before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,var(--halo),transparent 68%)}
+.hero-logo{position:relative;width:120px;height:120px;border-radius:30px;display:block;filter:drop-shadow(0 12px 26px rgba(91,72,184,.45))}
+.mark.big{position:relative;width:120px;height:120px;border-radius:30px;font-size:2.2rem}
+@keyframes float{50%{translate:0 -10px}}
+#welcome h1{margin-top:22px;font-size:clamp(2.1rem,7vw,3.8rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;background:linear-gradient(100deg,var(--ink) 20%,var(--c2),var(--c3),var(--c1),var(--ink) 80%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 6s linear infinite}
+@keyframes flow{to{background-position:-250% 0}}
+#welcome p{margin-top:12px;color:var(--muted);font-size:1.05rem;line-height:1.5}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:20px}
+.chips span{padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:.85rem;background:var(--soft);animation:float 4.5s ease-in-out infinite}
+.chips span:nth-child(2){animation-delay:-1.5s}.chips span:nth-child(3){animation-delay:-3s}
+
+/* logo dock */
+.dock{display:flex;gap:14px;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;justify-content:safe center;padding:18px 14px calc(14px + env(safe-area-inset-bottom,0px));scrollbar-width:thin}
+.tile{flex:none;width:120px;display:flex;flex-direction:column;gap:8px;background:none;border:0;padding:0;cursor:pointer;text-align:center}
+.slot{border-radius:16px;padding:2px;background:var(--line);transition:box-shadow .25s}
+.logo{height:66px;display:grid;place-items:center;border-radius:14px;font-weight:800;font-size:1.3rem;color:#12202b;transition:transform .18s ease-out;transform:perspective(520px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--lift,0px));background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(91,72,184,.32),transparent 62%),var(--tile)}
+.logo img{max-width:82%;max-height:76%;object-fit:contain}
+.name{font-size:.8rem;color:var(--muted);line-height:1.2;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.tile:hover .logo{--lift:-4px}
+.tile:hover .slot{box-shadow:0 0 22px rgba(var(--hl),.4)}
+.tile[aria-current="true"] .slot{background:conic-gradient(from var(--a),var(--c1),var(--c2),var(--c3),var(--c1));animation:spin 3s linear infinite;box-shadow:0 0 28px rgba(91,72,184,.6)}
+@keyframes spin{to{--a:360deg}}
+.tile[aria-current="true"] .logo{--lift:-6px}
+.tile[aria-current="true"] .name{color:var(--ink);font-weight:600}
+.tile.secret .logo{background:linear-gradient(135deg,#17113a,#241a57);color:#c9c0ff;font-size:1.7rem;text-shadow:0 0 16px #a99bff;position:relative;overflow:hidden}
+.tile.secret .logo::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.22),transparent);transform:skewX(-20deg);animation:shine 3.6s ease-in-out infinite}
+
+/* mobil */
+@media (max-width:720px){
+  header.top{padding:10px 12px;gap:8px}
+  .brand{padding:5px 10px 5px 6px;gap:8px}
+  .bi,.mark{width:30px;height:30px}
+  .bw{height:15px}
+  .actions{gap:8px}
+  .ig{position:static;transform:none;width:38px;height:38px;padding:0;justify-content:center;border:1px solid var(--line);border-radius:50%;background:var(--soft);backdrop-filter:none}
+  .ig span{display:none}
+  .cta{padding:9px 13px;font-size:.9rem}
+  .stage{padding:4px 8px 0}
+  .bar{padding:6px 8px;gap:8px}
+  .bar-i,#dev{display:none}
+  .btn{min-height:38px;display:inline-grid;place-items:center}
+  .hero-logo,.mark.big{width:96px;height:96px;border-radius:24px}
+  .halo::before{width:210px;height:210px}
+  #welcome{padding:12px}
+  #welcome p{font-size:.98rem}
+  .dock{gap:10px;padding:12px 12px calc(12px + env(safe-area-inset-bottom,0px));justify-content:flex-start}
+  .tile{width:92px}
+  .logo{height:58px}
+  .name{font-size:.75rem}
+}
+@media (max-width:420px){.hub{display:none}.cta{padding:9px 11px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+
+<header class="top">
+  <div class="brand">
+    <img class="bi" src="logo-icon.png?v=1" alt="" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+    <span class="mark" hidden>S7</span>
+    <img class="bw" src="logo-wordmark.png?v=1" alt="Sevenqorse" onerror="this.replaceWith(document.createTextNode('Sevenqorse'))">
+    <span class="hub">Hub</span>
+  </div>
+  <div class="actions">
+    <a class="ig" id="ig" target="_blank" rel="noopener" aria-label="Instagram hesabımız">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+      <span id="igname"></span>
+    </a>
+    <button class="icon-btn" id="theme" type="button" aria-label="Açık veya koyu temayı değiştir"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+    <a class="cta" href="https://wa.me/905312682132?text=Merhaba%2C%20projem%20hakk%C4%B1nda%20teklif%20almak%20istiyorum." target="_blank" rel="noopener">Teklif al</a>
+  </div>
+</header>
+
+<main class="stage">
+  <div class="window" id="win">
+    <header class="bar">
+      <img class="bar-i" src="logo-icon.png?v=1" alt="" onerror="this.remove()">
+      <button class="btn" id="close" type="button" hidden>Kapat</button>
+      <div class="who"><div id="title">Sevenqorse Hub</div><div id="path"></div></div>
+      <button class="btn" id="dev" type="button" aria-pressed="false" hidden>Mobil görünüm</button>
+      <a class="btn" id="open" target="_blank" rel="noopener" hidden>Yeni sekmede aç</a>
+    </header>
+    <div class="view" id="view">
+      <section id="welcome">
+        <div class="halo">
+          <img class="hero-logo" src="logo-icon.png?v=1" alt="Sevenqorse Hub" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+          <span class="mark big" hidden>S7</span>
+        </div>
+        <h1>Sevenqorse Hub</h1>
+        <p>Demo odası: aşağıdan bir firma seçin. Sitesi bu pencerede, gerçek bir iç sayfa gibi açılır.</p>
+        <div class="chips"><span>Canlı demo</span><span>Mobil uyumlu</span><span>Hızlı teslim</span></div>
+      </section>
+      <iframe id="frame" title="Demo sitesi" hidden></iframe>
+    </div>
+  </div>
+</main>
+<nav class="dock" id="dock" aria-label="Demo siteleri"></nav>
+
+<script>
+// Yeni müşteri: buraya bir satır ekleyin. slug = klasör adı, logo = o klasördeki logo dosyası.
+const DEMOS = [
+  { name: "Birlik Oto Hyundai",  slug: "birlik-oto-q6n3", logo: "birlik-oto-q6n3/logo.png" }, // slug'ı kendi klasör adınızla değiştirin
+  { name: "Poyden",              slug: "poyden-m4q9", logo: "poyden-m4q9/logo.png" },
+  { name: "Parla Diş Kliniği",   slug: "parla-dis-r5t8", logo: "parla-dis-r5t8/logo.png" },
+  // Gizli firmalar: adı ve logosu görünmez, sadece numara görünür
+  { name: "Gizli firma 1", slug: "gizli-1-x7k2", secret: true, mark: "1" },
+  { name: "Gizli firma 2", slug: "gizli-2-m3p6", secret: true, mark: "2" },
+  { name: "Gizli firma 3", slug: "gizli-3-q9w4", secret: true, mark: "3" },
+  { name: "Gizli firma 4", slug: "gizli-4-z2c8", secret: true, mark: "4" }
+];
+const INSTAGRAM = "sevenqorse"; // Instagram kullanıcı adınız (@ olmadan). Yanlışsa buradan düzeltin
+
+const $ = s => document.querySelector(s);
+const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
+const root = document.documentElement, mq = matchMedia("(prefers-color-scheme: light)");
+
+/* tema: sistem ayarını izler, düğmeyle değiştirilir */
+try { const t = localStorage.getItem("hub-theme"); if (t) root.dataset.theme = t; } catch (e) {}
+const isLight = () => root.dataset.theme ? root.dataset.theme === "light" : mq.matches;
+$("#theme").addEventListener("click", () => {
+  const t = isLight() ? "dark" : "light"; root.dataset.theme = t;
+  try { localStorage.setItem("hub-theme", t); } catch (e) {}
+});
+
+$("#ig").href = "https://www.instagram.com/" + INSTAGRAM + "/";
+$("#igname").textContent = "@" + INSTAGRAM;
+
+/* parçacık arka planı + tıklama patlaması */
+const cv = $("#fx"), cx = cv.getContext("2d");
+let W, H, P = [], bursts = [], mouse = { x: -999, y: -999 };
+function size() {
+  const r = Math.min(devicePixelRatio || 1, 2);
+  W = innerWidth; H = innerHeight; cv.width = W * r; cv.height = H * r; cx.setTransform(r, 0, 0, r, 0, 0);
+  const n = Math.min(70, Math.floor(W * H / 18000));
+  P = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35 }));
+}
+size(); addEventListener("resize", size);
+addEventListener("pointermove", e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+function burst(x, y) {
+  if (reduce) return;
+  for (let i = 0; i < 40; i++) {
+    const a = Math.random() * 6.283, s = 2 + Math.random() * 4.5;
+    bursts.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, l: 1, h: 245 + Math.random() * 55 });
+  }
+}
+function tick() {
+  const light = isLight(), dot = light ? "rgba(74,58,166,.55)" : "rgba(190,175,255,.7)", link = light ? "74,58,166" : "150,130,245", lum = light ? "50%" : "65%";
+  cx.clearRect(0, 0, W, H);
+  for (const p of P) {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0 || p.x > W) p.vx *= -1;
+    if (p.y < 0 || p.y > H) p.vy *= -1;
+    const dx = mouse.x - p.x, dy = mouse.y - p.y;
+    if (Math.hypot(dx, dy) < 140) { p.x -= dx * .004; p.y -= dy * .004; }
+    cx.fillStyle = dot; cx.beginPath(); cx.arc(p.x, p.y, 1.4, 0, 6.283); cx.fill();
+  }
+  for (let i = 0; i < P.length; i++) for (let j = i + 1; j < P.length; j++) {
+    const a = P[i], b = P[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+    if (d < 120) { cx.strokeStyle = "rgba(" + link + "," + ((1 - d / 120) * .35) + ")"; cx.beginPath(); cx.moveTo(a.x, a.y); cx.lineTo(b.x, b.y); cx.stroke(); }
+  }
+  bursts = bursts.filter(b => b.l > 0);
+  for (const b of bursts) {
+    b.x += b.vx; b.y += b.vy; b.vy += .08; b.vx *= .98; b.l -= .017;
+    cx.fillStyle = "hsla(" + b.h + ",85%," + lum + "," + b.l + ")"; cx.beginPath(); cx.arc(b.x, b.y, 2.2 * b.l + .5, 0, 6.283); cx.fill();
+  }
+  requestAnimationFrame(tick);
+}
+if (!reduce) tick();
+
+/* demo listesi */
+const only = new URLSearchParams(location.search).get("d"); // ?d=slug → yalnızca o müşteri görünür
+const list = only ? DEMOS.filter(d => d.slug === only) : DEMOS;
+const dock = $("#dock"), frame = $("#frame"), welcome = $("#welcome"), view = $("#view"), win = $("#win");
+const title = $("#title"), path = $("#path"), openLink = $("#open"), closeBtn = $("#close"), dev = $("#dev");
+const initials = n => n.split(/\s+/).slice(0, 2).map(w => w[0]).join("").toLocaleUpperCase("tr");
+
+list.forEach(d => {
+  const b = document.createElement("button"); b.type = "button"; b.className = "tile"; b.dataset.slug = d.slug;
+  const slot = document.createElement("span"); slot.className = "slot";
+  const lg = document.createElement("span"); lg.className = "logo";
+  const nm = document.createElement("span"); nm.className = "name"; nm.textContent = d.name;
+  if (d.secret) { b.classList.add("secret"); lg.textContent = d.mark; }
+  else { const img = new Image(); img.alt = ""; img.src = d.logo; img.onerror = () => { img.remove(); lg.textContent = initials(d.name); }; lg.append(img); }
+  slot.append(lg); b.append(slot, nm);
+  b.addEventListener("pointermove", e => {
+    if (e.pointerType !== "mouse") return;
+    const r = lg.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    lg.style.setProperty("--rx", ((.5 - y) * 16) + "deg"); lg.style.setProperty("--ry", ((x - .5) * 16) + "deg");
+    lg.style.setProperty("--mx", (x * 100) + "%"); lg.style.setProperty("--my", (y * 100) + "%");
+  });
+  b.addEventListener("pointerleave", () => ["--rx", "--ry", "--mx", "--my"].forEach(k => lg.style.removeProperty(k)));
+  b.addEventListener("click", () => {
+    const r = b.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + 30);
+    location.hash = d.slug;
+  });
+  dock.append(b);
+});
+
+view.addEventListener("pointermove", e => {
+  const r = view.getBoundingClientRect();
+  view.style.setProperty("--px", (e.clientX - r.left) + "px"); view.style.setProperty("--py", (e.clientY - r.top) + "px");
+});
+
+function show(slug) {
+  const d = list.find(x => x.slug === slug);
+  document.querySelectorAll(".tile").forEach(t => {
+    if (d && t.dataset.slug === slug) { t.setAttribute("aria-current", "true"); t.scrollIntoView({ inline: "center", block: "nearest" }); }
+    else t.removeAttribute("aria-current");
+  });
+  if (!d) {
+    frame.hidden = true; frame.removeAttribute("src"); view.classList.remove("ready", "loading");
+    welcome.hidden = false; title.textContent = "Sevenqorse Hub"; path.textContent = "";
+    openLink.hidden = closeBtn.hidden = dev.hidden = true;
+    return;
+  }
+  const url = d.slug + "/";
+  welcome.hidden = true; frame.hidden = false;
+  if (frame.getAttribute("src") !== url) {
+    view.classList.remove("ready"); view.classList.add("loading");
+    frame.onload = () => { view.classList.remove("loading"); view.classList.add("ready"); };
+    frame.src = url;
+    win.classList.remove("pop"); void win.offsetWidth; win.classList.add("pop");
+  }
+  title.textContent = d.name; path.textContent = "/" + d.slug + "/";
+  openLink.href = url; openLink.hidden = closeBtn.hidden = dev.hidden = false;
+}
+
+const current = () => decodeURIComponent(location.hash.slice(1)) || only || "";
+closeBtn.addEventListener("click", () => { if (only) show(""); else location.hash = ""; });
+dev.addEventListener("click", () => dev.setAttribute("aria-pressed", String(view.classList.toggle("mobile"))));
+addEventListener("hashchange", () => show(current()));
+show(current());
+</script>
+</body>
+</html>
