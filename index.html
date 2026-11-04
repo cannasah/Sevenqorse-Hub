@@ -200,7 +200,11 @@ const INSTAGRAM = "sevenqorse"; // Instagram kullanıcı adınız (@ olmadan). Y
 const $ = s => document.querySelector(s);
 const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
 const root = document.documentElement, mq = matchMedia("(prefers-color-scheme: light)");
-
+<a id="ig" href="https://www.instagram.com/sevenqorse/"
+   target="_blank" rel="noopener noreferrer">
+    <img src="logo.svg" alt="Sevenqorse">
+    <span id="igname">@sevenqorse</span>
+</a>
 /* tema: sistem ayarını izler, düğmeyle değiştirilir */
 try { const t = localStorage.getItem("hub-theme"); if (t) root.dataset.theme = t; } catch (e) {}
 const isLight = () => root.dataset.theme ? root.dataset.theme === "light" : mq.matches;
